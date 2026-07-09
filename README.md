@@ -1,0 +1,62 @@
+# TeraCyte Live/Dead Cell Classification
+
+Binary classifier for brightfield microscopy images (live vs dead).
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+```
+
+Dataset layout (from assignment):
+
+```
+images/
+  metadata.csv
+  images/*.png
+split.csv
+```
+
+## Environment
+
+Works locally and on cloud GPU (e.g. Nebius). Set the project root if needed:
+
+```bash
+export DATA_ROOT=/path/to/TeraCyte_assignment
+```
+
+## Train
+
+```bash
+python train.py --epochs 30 --output-dir checkpoints
+```
+
+Options: `--batch-size 64`, `--lr 1e-4`, `--data-root .`
+
+Outputs:
+- `checkpoints/best.pt` — best model by validation F1
+- `checkpoints/history.json` — per-epoch metrics for plotting
+
+## Evaluate
+
+```bash
+python evaluate.py --checkpoint checkpoints/best.pt --split test
+```
+
+Outputs:
+- Prints overall, per-experiment, and per-assay metrics
+- Saves `checkpoints/eval_results.json`
+
+## Notebook
+
+```bash
+jupyter lab analysis.ipynb
+```
+
+Part 3 runs `train.py` and `evaluate.py` and plots training curves.
+
+## Notes
+
+- Class imbalance handled via weighted cross-entropy (computed from train split)
+- Noisy samples (`split=noisy`) excluded from training and evaluation
+- Primary metrics: macro F1, balanced accuracy, per-assay breakdown

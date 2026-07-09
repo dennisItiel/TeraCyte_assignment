@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home Assignment — ML / Computer Vision Engineer · TeraCyte</title>
+  <style>
+    :root {
+      --brand:     #7965EF;
+      --brand-dark:#5a4bd1;
+      --navy:      #141133;
+      --bg:        #f5f6fb;
+      --surface:   #ffffff;
+      --border:    #e4e6f0;
+      --text:      #2d2d3a;
+      --muted:     #7b7d96;
+      --code-bg:   #f0f1f8;
+      --tag-bg:    #ede9fd;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .page { max-width: 860px; margin: 0 auto; padding: 48px 32px 96px; }
+
+    /* Header */
+    header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(20,17,51,.06);
+    }
+    .logo { margin-bottom: 24px; }
+    .logo img { height: 32px; width: auto; }
+    h1 {
+      font-size: 1.85rem; font-weight: 700; letter-spacing: -0.5px;
+      color: var(--navy); line-height: 1.25; margin-bottom: 16px;
+    }
+    .meta-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pill {
+      background: var(--tag-bg); border: 1px solid #d6d0f9;
+      border-radius: 20px; padding: 3px 12px;
+      font-size: 12px; color: var(--brand); font-weight: 500;
+    }
+    .pill.neutral {
+      background: #f0f1f8; border-color: var(--border); color: var(--muted);
+    }
+
+    /* Section cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(20,17,51,.04);
+    }
+    h2 {
+      font-size: 1.05rem; font-weight: 700; color: var(--navy);
+      margin: 0 0 20px; display: flex; align-items: center; gap: 10px;
+    }
+    h2 .num {
+      background: var(--brand); color: #fff;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 2px 8px; border-radius: 20px;
+    }
+    h3 {
+      font-size: 0.78rem; font-weight: 700; color: var(--brand);
+      text-transform: uppercase; letter-spacing: 0.07em; margin: 22px 0 8px;
+    }
+
+    /* Prose */
+    p { margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+    ul, ol { padding-left: 22px; margin-bottom: 12px; }
+    li { margin-bottom: 5px; }
+    li::marker { color: var(--brand); }
+    strong { color: var(--navy); font-weight: 600; }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Code */
+    code {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 5px; padding: 1px 6px;
+      font-family: 'JetBrains Mono','Fira Code','Cascadia Code',monospace;
+      font-size: 0.82em; color: var(--brand-dark);
+    }
+    pre {
+      background: var(--navy); border-radius: 10px;
+      padding: 20px 24px; margin: 14px 0; overflow-x: auto;
+    }
+    pre code {
+      background: none; border: none; padding: 0;
+      font-size: 0.85em; color: #c8d0e8;
+    }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.88em; }
+    thead tr { border-bottom: 2px solid var(--brand); }
+    th {
+      text-align: left; padding: 10px 14px;
+      color: var(--navy); font-weight: 700;
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #faf9ff; }
+    td:nth-child(2) { text-align: center; }
+
+    /* Callout */
+    .callout {
+      border-left: 3px solid var(--brand); background: var(--tag-bg);
+      border-radius: 0 10px 10px 0; padding: 14px 18px;
+      margin: 16px 0; font-size: 0.92em;
+    }
+    .callout p { margin: 0; color: var(--navy); }
+
+    /* Download banner */
+    .download-banner {
+      background: linear-gradient(135deg, var(--navy) 0%, #2a1f6e 100%);
+      border-radius: 12px; padding: 20px 24px; margin-bottom: 22px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .download-banner .dl-text p { color: #fff; margin: 0; font-weight: 600; }
+    .download-banner .dl-sub { color: #a89fe8; font-size: 0.85em; margin-top: 3px; }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--brand); color: #fff;
+      padding: 10px 22px; border-radius: 8px;
+      font-weight: 600; font-size: 0.9em;
+      text-decoration: none; white-space: nowrap;
+      transition: background .15s;
+    }
+    .download-btn:hover { background: var(--brand-dark); text-decoration: none; color: #fff; }
+
+    /* Task list */
+    .task-list { list-style: none; padding: 0; counter-reset: task; }
+    .task-list li {
+      counter-increment: task; display: flex; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .task-list li:last-child { border-bottom: none; }
+    .task-list li::before {
+      content: counter(task);
+      min-width: 28px; height: 28px; background: var(--brand); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: #fff;
+      margin-top: 2px; flex-shrink: 0;
+    }
+
+    /* Bonus grid */
+    .bonus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+    .bonus-item {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; font-size: 0.87em;
+      display: flex; align-items: flex-start; gap: 8px;
+    }
+    .bonus-item::before {
+      content: '★'; color: #f0a43a; flex-shrink: 0;
+      font-size: 0.75em; margin-top: 3px;
+    }
+    .bonus-item.top {
+      border-color: var(--brand); background: #f0eeff;
+    }
+    .bonus-item.top::after {
+      content: 'most valuable'; margin-left: auto; flex-shrink: 0;
+      font-size: 0.72em; font-weight: 700; color: var(--brand);
+      background: #e4dfff; border-radius: 4px; padding: 2px 6px;
+      align-self: center;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+      font-size: 0.82em; color: var(--muted);
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 8px;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--brand); }
+
+    @media (max-width: 600px) {
+      .page { padding: 16px 14px 64px; }
+      header { padding: 24px 20px; }
+      .card { padding: 20px 18px; }
+      h1 { font-size: 1.4rem; }
+      .bonus-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">
+      <img src="https://cdn.prod.website-files.com/65daf22fb69f35925919011d/65daf7a6a3491a3321f18f93_Logo.svg" alt="TeraCyte" />
+    </div>
+    <h1>Home Assignment<br>ML / Computer Vision Engineer</h1>
+    <div class="meta-pills">
+      <span class="pill">Estimated effort: 4–8 hours</span>
+      <span class="pill neutral">Deadline: 3 calendar days from receipt</span>
+    </div>
+  </header>
+
+  <!-- 01 Background -->
+  <div class="card">
+    <h2><span class="num">01</span> Background</h2>
+    <p>
+      TeraCyte builds AI-powered single-cell analysis tools for precision medicine. One core task is
+      classifying individual cells as <strong>live or dead</strong> directly from brightfield (BF)
+      microscopy images — without relying on fluorescent stains.
+    </p>
+    <p>BF-based live/dead classification is challenging because:</p>
+    <ul>
+      <li>The signal is subtle (membrane integrity changes are small in BF)</li>
+      <li>Microscopy data has significant batch effects across imaging sessions</li>
+      <li>Real datasets are messy: out-of-focus acquisitions, empty wells, class imbalance</li>
+    </ul>
+    <p>This assignment asks you to build a binary live/dead classifier and, just as importantly,
+    to demonstrate that you understand the data before you model it.</p>
+  </div>
+
+  <!-- 02 Dataset -->
+  <div class="card">
+    <h2><span class="num">02</span> Dataset</h2>
+
+    <div class="download-banner">
+      <div class="dl-text">
+        <p>Download the dataset (~69 MB, zip)</p>
+        <p class="dl-sub">images.zip — ~10,800 PNG images and metadata.csv</p>
+      </div>
+      <a href="https://drive.google.com/drive/folders/1igH_juUU6yI8CjbfbnD0SLx2jpIhuuQ3?usp=sharing" class="download-btn" target="_blank" rel="noopener">&#x2B07; Download dataset</a>
+    </div>
+
+    <h3>Structure</h3>
+    <pre><code>images.zip
+├── images/          ~10,800 grayscale PNGs  (224x224 px, uint8)
+└── metadata.csv     one row per image</code></pre>
+    <p>Images are stored as uint8 grayscale PNGs.</p>
+
+    <h3>Metadata columns</h3>
+    <table>
+      <thead><tr><th>Column</th><th style="text-align:left">Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>sample_id</code></td><td>Unique image identifier (also the filename stem)</td></tr>
+        <tr><td><code>exp_id</code></td><td>Experiment (imaging session) ID</td></tr>
+        <tr><td><code>assay_id</code></td><td>Assay ID within the experiment</td></tr>
+        <tr><td><code>assay_index</code></td><td>Integer assay index</td></tr>
+        <tr><td><code>global_index</code></td><td>Well index within the experiment</td></tr>
+        <tr><td><code>label</code></td><td>Ground-truth: <code>live</code> or <code>dead</code></td></tr>
+        <tr><td><code>magnification</code></td><td>Objective magnification</td></tr>
+        <tr><td><code>channel_name</code></td><td>Imaging channel</td></tr>
+        <tr><td><code>sequence</code></td><td>Sequence index of the well within its assay</td></tr>
+        <tr><td><code>z_plane</code></td><td>Z-slice index</td></tr>
+        <tr><td><code>well_diameter_um</code></td><td>Well diameter in micrometres</td></tr>
+        <tr><td><code>x_fov</code>, <code>y_fov</code></td><td>Well centre coordinates in the original FOV (native pixels)</td></tr>
+        <tr><td><code>r_fov</code></td><td>Well radius in the original FOV (native pixels)</td></tr>
+        <tr><td><code>x</code>, <code>y</code></td><td>Well centre in the 224-px PNG</td></tr>
+        <tr><td><code>r</code></td><td>Well radius in the 224-px PNG</td></tr>
+        <tr><td><code>filepath</code></td><td>Relative path to the PNG</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 03 Task -->
+  <div class="card">
+    <h2><span class="num">03</span> Task</h2>
+    <ol class="task-list">
+      <li><div><strong>Explore the dataset.</strong> Report basic statistics: class balance,
+        per-experiment distributions, image quality observations.
+        This section is worth as much as the model.</div></li>
+      <li><div><strong>Design and justify a train / validation / test split.</strong>
+        Submit a CSV file (<code>split.csv</code>) with columns <code>sample_id, split</code>
+        where <code>split &#x2208; {train, val, test}</code>.
+        Your justification must address data leakage.</div></li>
+      <li><div><strong>Train a binary live/dead classifier</strong> (any DL framework, any architecture).
+        The input is the 224&#xD7;224 BF PNG; the output is <code>live</code> or <code>dead</code>
+        with a confidence score.</div></li>
+      <li><div><strong>Evaluate and analyse your model.</strong>
+        Report per-experiment metrics. Discuss the failure modes you observe and how you would
+        address them in a production system.</div></li>
+    </ol>
+  </div>
+
+  <!-- 04 Deliverables -->
+  <div class="card">
+    <h2><span class="num">04</span> Deliverables</h2>
+    <p>Submit a link to a <strong>Git repository</strong> (GitHub / GitLab, private or public) containing:</p>
+    <table>
+      <thead><tr><th>File / folder</th><th>Required</th><th style="text-align:left">Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>README.md</code></td><td>&#x2705;</td><td>Setup instructions, how to reproduce your results</td></tr>
+        <tr><td><code>split.csv</code></td><td>&#x2705;</td><td><code>sample_id, split</code> for every row in <code>metadata.csv</code></td></tr>
+        <tr><td><code>train.py</code> (or equivalent)</td><td>&#x2705;</td><td>Runnable training script</td></tr>
+        <tr><td><code>evaluate.py</code> (or equivalent)</td><td>&#x2705;</td><td>Loads model checkpoint, prints per-experiment metrics</td></tr>
+        <tr><td><code>analysis.ipynb</code></td><td>&#x2705;</td><td>Notebook with key outputs visible — EDA, training curves, confusion matrices, error analysis</td></tr>
+        <tr><td><code>requirements.txt</code> / <code>pyproject.toml</code></td><td>&#x2705;</td><td>Exact dependency versions</td></tr>
+        <tr><td>Model checkpoint</td><td>&#x2705;</td><td>Link to hosted weights (GCS / HuggingFace / etc.) if &gt; 100 MB</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 05 Report -->
+  <div class="card">
+    <h2><span class="num">05</span> Report</h2>
+    <p>Your <code>analysis.ipynb</code> notebook (executed, all outputs visible) should cover:</p>
+    <ol>
+      <li><strong>Data exploration</strong> — class balance, per-experiment distributions, image quality observations</li>
+      <li><strong>Split design rationale</strong> — why your split is valid and what leakage risks you avoided</li>
+      <li><strong>Model choice and training</strong> — architecture, loss function, augmentations, why you chose them</li>
+      <li><strong>Training monitoring</strong> — loss and metric curves, learning rate schedule, convergence behaviour</li>
+      <li><strong>Performance metrics</strong> — confusion matrix, per-experiment accuracy / F1, precision-recall curve</li>
+      <li><strong>Error analysis</strong> — at least 5 misclassified examples with commentary; what patterns do you see?</li>
+      <li><strong>What you would do with more time</strong> — top 3 improvements</li>
+    </ol>
+  </div>
+
+  <!-- 06 Bonus -->
+  <div class="card">
+    <h2><span class="num">06</span> Bonus Points</h2>
+    <p>Not required but will be noted positively:</p>
+    <div class="bonus-grid">
+      <div class="bonus-item top">GPU monitoring: peak memory and utilisation during training</div>
+      <div class="bonus-item top">Inference throughput benchmark (samples / sec)</div>
+      <div class="bonus-item">Explicit handling of class imbalance (weighted loss, oversampling, or both)</div>
+      <div class="bonus-item">Per-assay or per-experiment metric breakdown</div>
+      <div class="bonus-item">Detection and handling of low-quality images before classification</div>
+    </div>
+  </div>
+
+  <!-- 07 Practical Notes -->
+  <div class="card">
+    <h2><span class="num">07</span> Practical Notes</h2>
+    <ul>
+      <li>You may use any framework (PyTorch, JAX, etc.) and any pretrained backbone.</li>
+      <li>Training on a free GPU (Colab, Kaggle, RunPod) is perfectly fine; note the GPU model in your README.</li>
+      <li>The dataset is ~89 MB uncompressed (~69 MB as a zip). Metadata alone is ~2 MB.</li>
+    </ul>
+    <div class="callout" style="margin-top:16px">
+      <p><strong>We care more about how you reach your results than about the final accuracy number.</strong>
+      A clean, well-reasoned process with honest failure analysis is more valuable than a
+      squeezed leaderboard score.</p>
+    </div>
+  </div>
+
+  <!-- 08 Follow-up -->
+  <div class="card">
+    <h2><span class="num">08</span> Follow-up</h2>
+    <p>After submission you will be invited to a 20-minute video call where you will:</p>
+    <ol>
+      <li>Walk us through your EDA findings and split design</li>
+      <li>Show your best and worst predictions</li>
+      <li>Discuss what you would do differently with more compute / data</li>
+    </ol>
+  </div>
+
+  <footer>
+    <span>&#169; 2026 TeraCyte Analytics</span>
+    <a href="mailto:neta.t@teracyte.ai">neta.t@teracyte.ai</a>
+  </footer>
+
+</div>
+</body>
+</html>
