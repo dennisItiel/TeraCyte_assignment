@@ -47,13 +47,17 @@ Outputs:
 - Prints overall, per-experiment, and per-assay metrics
 - Saves `checkpoints/eval_results.json`
 
-## Notebook
+## Notebook (recommended on Nebius GPU VM)
 
 ```bash
-jupyter lab analysis.ipynb
+pip install -r requirements.txt
+export DATA_ROOT=$(pwd)
+jupyter lab --ip=0.0.0.0 --port=8888 --no-browser
 ```
 
-Part 3 runs `train.py` and `evaluate.py` and plots training curves.
+SSH tunnel from your machine: `ssh -L 8888:localhost:8888 itiel@<VM_IP>`
+
+Part 3 streams live logs from `train.py` / `evaluate.py`, plots GPU usage from `history.json`, and reports PR-AUC + inference throughput on the test set.
 
 ## Notes
 

@@ -8,3 +8,4 @@ torch
 torchvision
 scikit-learn
 tqdm
+nvidia-ml-py

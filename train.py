@@ -92,6 +92,22 @@ def build_model(num_classes=2):
     return model
 
 
+def get_gpu_stats():
+    try:
+        import pynvml
+
+        pynvml.nvmlInit()
+        handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+        util = pynvml.nvmlDeviceGetUtilizationRates(handle)
+        mem = pynvml.nvmlDeviceGetMemoryInfo(handle)
+        return {
+            "gpu_util_pct": float(util.gpu),
+            "gpu_mem_used_mb": int(mem.used // 2**20),
+        }
+    except Exception:
+        return {"gpu_util_pct": None, "gpu_mem_used_mb": None}
+
+
 def run_epoch(model, loader, criterion, device, optimizer=None, scaler=None):
     train_mode = optimizer is not None
     model.train(train_mode)
@@ -198,13 +214,21 @@ def main():
             "val_f1": val_metrics["f1"],
             "val_balanced_acc": val_metrics["balanced_acc"],
             "lr": optimizer.param_groups[0]["lr"],
+            **get_gpu_stats(),
         }
         history.append(record)
+        gpu_note = ""
+        if record["gpu_util_pct"] is not None:
+            gpu_note = (
+                f"  gpu={record['gpu_util_pct']:.0f}%"
+                f"  mem={record['gpu_mem_used_mb']}MB"
+            )
         print(
             f"train_loss={record['train_loss']:.4f}  "
             f"val_loss={record['val_loss']:.4f}  "
             f"val_f1={record['val_f1']:.4f}  "
             f"val_balanced_acc={record['val_balanced_acc']:.4f}"
+            f"{gpu_note}"
         )
 
         if val_metrics["f1"] > best_f1:
