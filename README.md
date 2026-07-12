@@ -19,7 +19,7 @@ split.csv
 
 ## Environment
 
-Works locally and on cloud GPU (e.g. Nebius). Set the project root if needed:
+Works locally and on a single cloud GPU (tested on a Nebius L4/L40S-class VM). Set the project root if needed:
 
 ```bash
 export DATA_ROOT=/path/to/TeraCyte_assignment
@@ -28,10 +28,10 @@ export DATA_ROOT=/path/to/TeraCyte_assignment
 ## Train
 
 ```bash
-python train.py --epochs 30 --output-dir checkpoints
+python train.py --epochs 30 --batch-size 512 --num-workers 12 --output-dir checkpoints
 ```
 
-Options: `--batch-size 64`, `--lr 1e-4`, `--data-root .`
+The larger batch size keeps the GPU well utilized while fitting comfortably in memory. Options: `--batch-size`, `--num-workers`, `--lr 1e-4`, `--data-root .`
 
 Outputs:
 - `checkpoints/best.pt` — best model by validation F1
